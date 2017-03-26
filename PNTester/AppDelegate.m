@@ -45,6 +45,10 @@ const NSString* kGCMMessageIDKey = @"gcm.message_id";
 	return YES;
 }
 
+- (void)applicationReceivedRemoteMessage:(nonnull FIRMessagingRemoteMessage *)remoteMessage
+{
+	NSLog(@"Received Remote Message %@", remoteMessage);
+}
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
 	// If you are receiving a notification message while your app is in the background,
@@ -97,7 +101,7 @@ const NSString* kGCMMessageIDKey = @"gcm.message_id";
 	NSLog(@"%@", userInfo);
 	
 	// Change this to your preferred presentation option
-	completionHandler(UNNotificationPresentationOptionNone);
+	completionHandler(UNNotificationPresentationOptionAlert);
 }
 
 
@@ -154,6 +158,7 @@ didReceiveNotificationResponse:(UNNotificationResponse *)response
 		} else {
 			NSLog(@"Connected to FCM.");
 		}
+		NSLog(@"Instance ID :%@", [[FIRInstanceID instanceID] token]);
 	}];
 }
 
